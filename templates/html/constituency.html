@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #video-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #video-container video {
+            max-width: 100%;
+            border: 1px solid #ccc;
+        }
+
+        #photo-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #photo-container img {
+            max-width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .button-container button {
+            padding: 15px 30px;
+            margin: 0 10px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="video-container">
+        <video id="video" autoplay></video>
+    </div>
+
+    <div class="button-container">
+        <button onclick="startCamera()">Start Camera</button>
+        <button onclick="capturePhoto()">Capture Photo</button>
+    </div>
+
+    <div id="photo-container" style="display:none;">
+        <img id="photo" src="" alt="Captured Photo">
+    </div>
+
+    <div class="button-container" id="next-button-container" style="display:none;">
+        <button onclick="nextPage()">Next Page</button>
+    </div>
+
+    <script>
+        let videoStream;
+        const videoElement = document.getElementById('video');
+        const photoContainer = document.getElementById('photo-container');
+        const nextButtonContainer = document.getElementById('next-button-container');
+
+        // Function to start the camera
+        function startCamera() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        videoStream = stream;
+                        videoElement.srcObject = stream;
+                        videoElement.play();
+                    })
+                    .catch(function (error) {
+                        console.error('Error accessing the camera: ', error);
+                    });
+            } else {
+                console.error('getUserMedia not supported on your browser!');
+            }
+        }
+
+        // Function to capture a photo
+        function capturePhoto() {
+            const canvas = document.createElement('canvas');
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            const photoURL = canvas.toDataURL('image/jpeg');
+            const photoElement = document.getElementById('photo');
+            photoElement.src = photoURL;
+            photoContainer.style.display = 'block';
+            nextButtonContainer.style.display = 'block';
+            sessionStorage.setItem('capturedPhoto', photoURL);
+            stopCamera();
+        }
+
+        // Function to stop the camera
+        function stopCamera() {
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => {
+                    track.stop();
+                });
+            }
+        }
+
+        // Function to navigate to the next page (dummy function for demonstration)
+        function nextPage() {
+            alert('Moving to the next page...');
+            window.location.href = "{% url 'ctps' %}";
+            // Add your logic to navigate to the next page here
+        }
+    </script>
+</body>
+
+</html>

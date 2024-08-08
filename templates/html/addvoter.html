@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter Registration</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
+      color: #fff;
+      padding: 15px;
+      width: 100%;
+      text-align: center;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+    }
+
+    .menu-button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    .logout-menu {
+      position: relative;
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .logout-menu-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .logout-menu-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .logout-menu-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .logout-menu:hover .logout-menu-content {
+      display: block;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
+      color: #fff;
+      width: 200px;
+      height: 100%;
+      position: fixed;
+      top: 9.5%;
+      left: 0;
+      padding-top: 60px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+    }
+
+    .sidebar ul li a {
+      color: #fff;
+      margin-bottom: 50px;
+      text-decoration: none;
+      padding: 10px 20px;
+      /* Adjust the padding */
+    }
+
+    /* Main content styles */
+    .main-content {
+      margin-left: 200px;
+      padding: 20px;
+      position: static;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-top: 70px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+      /* Center the label */
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    select,
+    textarea,
+    input[type="date"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      margin-left: 40%;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1 style="flex-grow: 1;">Voter Registration</h1>
+    <div class="logout-menu">
+      <button class="menu-button">Logout</button>
+      <div class="logout-menu-content">
+        <a href="#">Option 1</a>
+        <a href="#">Option 2</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <ul>
+      <li><a href="{% url 'dts' %}">Search a Voter</a></li>
+      <li><a href="{% url 'dts' %}">Delete a Voter</a></li>
+      <li><a href="#">Option 3</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2>Registration Form</h2>
+    <form class="ads" method="POST" onsubmit="return validateForm()" action="{% url 'acs' %}">
+      {% csrf_token %}
+      <label for="aadhar">Aadhar Number:</label>
+      <input type="text" id="aadhar" name="aadhar" required><br><br>
+
+      <label for="name">Candidate Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="father_name">Father's Name:</label>
+      <input type="text" id="father_name" name="father_name" required><br><br>
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" required><br><br>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="4" cols="50" required></textarea><br><br>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select><br><br>
+
+      <label for="constituency">Constituency:</label>
+      <select id="constituency" name="constituency">
+        <option value="Telengana">Telengana</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+      </select><br><br>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required><br><br>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      var dobInput = document.getElementById('dob').value;
+      var dob = new Date(dobInput);
+      var today = new Date();
+      var age = today.getFullYear() - dob.getFullYear();
+      var monthDiff = today.getMonth() - dob.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+      if (age < 18) {
+        alert("You must be at least 18 years old to register.");
+        return false;
+      }
+
+      // Storing form data in sessionStorage
+      sessionStorage.setItem('formData', JSON.stringify({
+        aadhar: document.getElementById('aadhar').value,
+        name: document.getElementById('name').value,
+        father_name: document.getElementById('father_name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        address: document.getElementById('address').value,
+        gender: document.getElementById('gender').value,
+        constituency: document.getElementById('constituency').value,
+        dob: document.getElementById('dob').value
+      }));
+
+      return true;
+    }
+  </script>
+</body>
+
+</html>

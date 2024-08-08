@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #25619c;
+            color: #343a40;
+        }
+
+        .container {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .logout-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #dc3545; /* Bootstrap danger color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c82333; /* Darker shade of danger color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">        
+        <div class="logout-container">
+            <h1>Logout</h1>
+            <p>Are you sure you want to logout?</p>
+            <form method="post" action="{% url 'hm' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

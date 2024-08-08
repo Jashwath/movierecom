@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://source.unsplash.com/1600x900/?movies') no-repeat center center fixed;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 30px;
+            position: sticky;
+            height: 30px;
+            top: 0;
+            z-index: 1002;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .search-form {
+            text-align: center;
+            position: fixed;
+            top: 100px; /* Adjusted to sit below the nav bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            padding: 10px 0;
+        }
+        input[type="text"] {
+            padding: 15px;
+            width: 50%;
+            border-radius: 30px;
+            border: none;
+            background-color: #eee;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease;
+        }
+        input[type="text"]:focus {
+            width: 70%;
+        }
+        input[type="submit"] {
+            padding: 15px 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 150px; /* Adjusted for fixed nav bar and search bar */
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 100px;
+        }
+        .playlist-card {
+            flex: 0 0 21%; /* Each card will take up 30% of the container's width */
+            height: 200px;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #7b4397, #dc2430);
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .playlist-card:hover {
+            transform: translateY(-5px);
+        }
+        .playlist-card h2 {
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .playlist-card p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div><h1>Movie Dashboard</h1></div>
+    <div>
+        <a href="{% url 'vat' %}">Home</a>
+        <a href="{% url 'prof' %}">Profile</a>
+        <a href="{% url 'logt' %}">Logout</a>
+    </div>
+</nav>
+
+<div class="search-form">
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="search_query" placeholder="Search movies...">
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<div class="container">
+    <div class="playlist-card">
+        <a href="{% url 'pap' %}" style="text-decoration: none; color: inherit;">
+        <h2>Public Playlist</h2>
+        <p>This is the description of public playlist.</p>
+        </a>
+    </div>
+    <div class="playlist-card">
+        <a href="{% url 'pap1' %}" style="text-decoration: none; color: inherit;">
+        <h2>Playlist 1</h2>
+        <p>This is the description of playlist-1.</p>
+        </a>
+    </div>
+    <div class="playlist-card">
+        <a href="{% url 'ctps' %}" style="text-decoration: none; color: inherit;">
+        <h2>Playlist 2</h2>
+        <p>This is the description of playlist-2.</p>
+        </a>
+    </div>
+    <div class="playlist-card">
+        <a href="{% url 'pap2' %}" style="text-decoration: none; color: inherit;">
+        <h2>Playlist 3</h2>
+        <p>This is the description of playlist-3.</p>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
