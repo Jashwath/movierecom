@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-djs!k4=pc_9o2u5*7)c5y6zbp$6!ycba*xdxe-idr=(l#(--f=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'movierecom-4.onrender.com',
+]
 
 
 # Application definition
