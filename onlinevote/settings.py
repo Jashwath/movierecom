@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'movierecom-4.onrender.com',
+    'movierecom-5.onrender.com',
 ]
 
 
